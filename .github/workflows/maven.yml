@@ -26,8 +26,7 @@ jobs:
     - name: Build & push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        container_name: springboot-postgresql
-        image: springboot-postgresql
+        image: neltino/fashion-blog
         tags: latest
         registry: docker.io
         dockerfile: Dockerfile
