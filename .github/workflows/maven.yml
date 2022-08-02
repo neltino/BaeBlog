@@ -32,7 +32,7 @@ jobs:
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-
+        depends_on: fashionDB
 
     # Service containers to run with `container-job`
     services:
