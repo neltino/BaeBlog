@@ -28,9 +28,9 @@ public class UsersServiceImpl implements UsersService {
         if(usersRepository.findUsersByEmail(user.getEmail()) != null){
                 throw new NotAcceptableException("Sorry, a user with this email already exits!");
             }
-        if(user.getRole().equals(Role.ADMIN) && usersRepository.findUsersByRole(Role.ADMIN) != null){
-            throw new NotAcceptableException("Sorry, user with Admin privilege already exits!");
-        }
+//        if(user.getRole().equals(Role.ADMIN) && usersRepository.findUsersByRole(Role.ADMIN) != null){
+//            throw new NotAcceptableException("Sorry, user with Admin privilege already exits!");
+//        }
         Users users = new Users();
         users.setFirstName(user.getFirstName());
         users.setLastName(user.getLastName());

@@ -21,9 +21,9 @@ public class Users {
     private String lastName;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "TEXT")
-    private Role role;
+    private Role role = Role.USER;
     @Column(columnDefinition = "TEXT", nullable = false, unique = true)
-    @Email
+    @Email(message = "Email must be valid")
     private String email;
     @Column(columnDefinition = "TEXT", nullable = false)
     @Size(min = 5, message = "Password must be 5 or more characters")

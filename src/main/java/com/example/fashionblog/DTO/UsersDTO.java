@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -19,8 +20,8 @@ public class UsersDTO {
     @NotBlank(message = "Lastname cannot be blank!")
     @Size(min = 3, message = "Lastname must be 3 or more characters")
     private String lastName;
-    private Role role;
     @Email(message = "Invalid email format provided, please check!")
+    @Column(unique = true)
     private String email;
     @Size(min = 5, message = "Password must be 5 or more characters")
     private String password;
