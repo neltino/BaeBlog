@@ -24,6 +24,8 @@ public class Product {
     private ProductCategory category;
     @Column(nullable = false)
     private BigInteger price;
+    @Column(nullable = false)
+    private String imgLink;
 
 //    @ManyToMany(mappedBy = "userProduct")
 //    private List<Users> usersProduct;

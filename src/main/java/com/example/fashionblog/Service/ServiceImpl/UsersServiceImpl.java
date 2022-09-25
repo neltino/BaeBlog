@@ -28,17 +28,17 @@ public class UsersServiceImpl implements UsersService {
         if(usersRepository.findUsersByEmail(user.getEmail()) != null){
                 throw new NotAcceptableException("Sorry, a user with this email already exits!");
             }
-//        if(user.getRole().equals(Role.ADMIN) && usersRepository.findUsersByRole(Role.ADMIN) != null){
-//            throw new NotAcceptableException("Sorry, user with Admin privilege already exits!");
-//        }
-        Users users = new Users();
-        users.setFirstName(user.getFirstName());
-        users.setLastName(user.getLastName());
-        users.setRole(Role.USER);
-        users.setEmail(user.getEmail());
-        users.setPassword(user.getPassword());
+
+        Users users = Users.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .role(Role.USER)
+                .password(user.getPassword())
+                .isActive(false)
+                .email(user.getEmail())
+                .build();
         usersRepository.save(users);
-        return users.getRole() + " created successfully!";
+        return  "Account created successfully!";
     }
     @Override
     public String login(String username, String password){
@@ -63,6 +63,5 @@ public class UsersServiceImpl implements UsersService {
         httpSession.invalidate();
         return "Logout successful!";
     }
-
 
 }

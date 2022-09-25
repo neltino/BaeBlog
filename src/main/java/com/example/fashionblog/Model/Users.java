@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +22,12 @@ public class Users {
     private String lastName;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "TEXT")
-    private Role role = Role.USER;
+    private Role role;
     @Column(columnDefinition = "TEXT", nullable = false, unique = true)
     @Email(message = "Email must be valid")
     private String email;
+    @Column
+    private boolean isActive;
     @Column(columnDefinition = "TEXT", nullable = false)
     @Size(min = 5, message = "Password must be 5 or more characters")
     private String password;
