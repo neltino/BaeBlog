@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("comment")
+@RequestMapping("/comment")
 public class CommentController {
     @Autowired
     CommentServiceImpl commentService;
@@ -37,7 +37,7 @@ public class CommentController {
     @Operation(
             tags = {"Comment"},
             summary = "view all comments",
-            description = "This enpoint enables the admin to view all user comments",
+            description = "This endpoint enables the admin to view all user comments",
             responses = {
                     @ApiResponse(responseCode = "200", description = "successful", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(responseCode = "404", description = "Not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),

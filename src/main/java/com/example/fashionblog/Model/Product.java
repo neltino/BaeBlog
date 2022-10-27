@@ -27,8 +27,5 @@ public class Product {
     @Column(nullable = false)
     private String imgLink;
 
-//    @ManyToMany(mappedBy = "userProduct")
-//    private List<Users> usersProduct;
-
 
 }

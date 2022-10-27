@@ -1,10 +1,11 @@
 package com.example.fashionblog.Model;
 
-import com.example.fashionblog.Enum.Role;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,6 @@ public class Users {
     private String firstName;
     @Column(columnDefinition = "TEXT", nullable = false)
     private String lastName;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private Role role;
     @Column(columnDefinition = "TEXT", nullable = false, unique = true)
     @Email(message = "Email must be valid")
     private String email;
@@ -31,6 +29,10 @@ public class Users {
     @Column(columnDefinition = "TEXT", nullable = false)
     @Size(min = 5, message = "Password must be 5 or more characters")
     private String password;
+
+    @OneToMany(mappedBy = "Id", fetch = FetchType.EAGER)
+    private Collection<UserRole> roles = new ArrayList<>();
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<Comment> comment;
     @OneToMany
