@@ -1,27 +1,26 @@
 package com.example.fashionblog.Controller;
 
 import com.example.fashionblog.DTO.UsersDTO;
+import com.example.fashionblog.Model.Users;
 import com.example.fashionblog.Service.UsersService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@Data
-@Scope("session")
 @RequestMapping("/users")
 public class UsersController {
-    private final HttpSession httpSession;
+
     @Autowired
     UsersService userService;
+
 
     @PostMapping("/create-user")
     @Operation(
@@ -41,20 +40,23 @@ public class UsersController {
 
         return userService.createUser(user);
     }
-    @GetMapping("/login")
+
+    @GetMapping("/view-all")
     @Operation(
             tags = {"Users"},
-            summary = "user login",
-            description = "This endpoint enables a user to login and per user-related functions",
+            summary = "View All Users",
+            description = "This endpoint enables the admin to view all users",
             responses = {
                     @ApiResponse(responseCode = "200", description = "login successful", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(responseCode = "404", description = "Incorrect username and/or password", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
                     @ApiResponse(responseCode = "406", description = "User not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
             }
     )
-    public String login(@RequestParam String username, @RequestParam String password){
-        return userService.login(username, password);
+
+    public List<Users> login(@RequestParam String username, @RequestParam String password){
+        return userService.viewAllUsers();
     }
+
     @GetMapping("/logout")
     @Operation(
             tags = {"Users"},
@@ -65,6 +67,7 @@ public class UsersController {
             }
 
     )
+
     public String logout(){
         return userService.logout();
     }

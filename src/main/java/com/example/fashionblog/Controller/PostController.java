@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("post")
+@RequestMapping("/post")
 public class PostController {
     @Autowired
     PostServiceImpl postService;
-    @PostMapping("create-post")
+    @PostMapping("/create-post")
     @Operation(
             tags = {"Post"},
             summary = "create post",
