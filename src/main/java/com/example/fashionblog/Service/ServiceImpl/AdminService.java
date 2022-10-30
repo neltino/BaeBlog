@@ -10,6 +10,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Service
 public class AdminService implements CommandLineRunner {
     @Autowired
@@ -22,6 +25,7 @@ public class AdminService implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if(userRoleRepository.findUserRoleByRoles(Role.ADMIN) == null){
+
             Users admin = Users.builder()
                     .firstName("Nelson")
                     .lastName("John")
@@ -34,6 +38,8 @@ public class AdminService implements CommandLineRunner {
                     .roles(Role.ADMIN)
                     .build();
             userRoleRepository.save(userRole);
+
+
         }
     }
 }

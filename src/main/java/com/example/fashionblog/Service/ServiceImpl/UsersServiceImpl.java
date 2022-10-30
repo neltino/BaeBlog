@@ -80,23 +80,6 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
 
         return usersRepository.findAll();
     }
-//    @Override
-//    public String login(String username, String password){
-//
-//        if(usersRepository.findUsersByEmail(username) == null){
-//            throw new NotFoundException("Incorrect email or password");
-//        }
-//        Users user = usersRepository.findUsersByEmail(username);
-//        if(!user.isActive()){
-//            throw new BadRequestException("Please verify your email");
-//        }
-//        if(!passwordEncoder.matches(password, user.getPassword())){
-//            throw new BadRequestException("Incorrect email or password");
-//        }
-//
-//
-//        return "Welcome " + user.getFirstName();
-//    }
 
 
     @Override
