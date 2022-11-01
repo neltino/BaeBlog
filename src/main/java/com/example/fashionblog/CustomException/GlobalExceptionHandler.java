@@ -30,4 +30,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> NotAcceptable(ForbiddenException ex){
         return new ResponseEntity(new ErrorFormat(ex.getMessage(), HttpStatus.FORBIDDEN, LocalDate.now()), HttpStatus.FORBIDDEN);
     }
+    @ExceptionHandler(MailNotSentException.class)
+    public ResponseEntity<Object> mailNotSentException(MailNotSentException ex){
+        return new ResponseEntity(new ErrorFormat(ex.getMessage(), HttpStatus.SERVICE_UNAVAILABLE, LocalDate.now()), HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }
