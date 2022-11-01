@@ -9,6 +9,7 @@ import com.example.fashionblog.Model.UserRole;
 import com.example.fashionblog.Model.Users;
 import com.example.fashionblog.Repository.UserRoleRepository;
 import com.example.fashionblog.Repository.UsersRepository;
+import com.example.fashionblog.Service.MailSenderService;
 import com.example.fashionblog.Service.UsersService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     private final UsersRepository usersRepository;
     @Autowired
     private final UserRoleRepository userRoleRepository;
+
+    @Autowired
+    private final MailSenderService mailSenderService;
     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
     @Override
@@ -72,7 +76,24 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
                 .roles(Role.USER)
                 .build();
         userRoleRepository.save(userRole);
-        return  "Account created successfully!";
+
+        String subject = "Beablog Email Verification";
+        String sender = "no-reply@beablog.com";
+        String body = "<!DOCTYPE = html>" +
+                "<html>" +
+                "<head>" +
+                "</head>"+
+                "<body>" +
+                "<h4 style = 'color:blue; text-align: center;' >Welcome to Beablog Fashion Membership</h4>"+
+                "<p style = 'color: green;' >Please complete you registration by clicking the button below!</p>"+
+                "<form action = 'http://localhost:8080/api/v1/users/verification' method = 'POST' enctype = 'multipart/form-data'>" +
+                "<input type = 'hidden' value = '"+users.getEmail()+"' name = 'username' >"+
+                "<button style = 'width: 50%; height: 50px; cursor: pointer; margin-left: 25%; color: white; background: blue; border-radius: 5px; border:none;' >Verify Email</button>" +
+                "</form>"+
+                "</body>"+
+                "</html>";
+        mailSenderService.sendMail(users.getEmail(), subject, body);
+        return  "Account created successfully, please check your email to verify you account!";
     }
 
     @Override
@@ -85,6 +106,19 @@ public class UsersServiceImpl implements UsersService, UserDetailsService {
     @Override
     public String logout() {
         return "Logout successful!";
+    }
+
+    @Override
+    public String updateUserStatus(String username) {
+        System.out.println("Halo, testing, testing....");
+        Users user = usersRepository.findUsersByEmail(username);
+        if(user == null){
+            throw new NotFoundException("User not found!");
+        }
+        user.setActive(true);
+        usersRepository.save(user);
+
+        return "Email verified successfully!";
     }
 
 

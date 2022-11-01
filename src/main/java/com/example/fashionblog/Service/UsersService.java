@@ -10,4 +10,5 @@ public interface UsersService {
     String createUser(UsersDTO user);
     List<Users> viewAllUsers();
     String logout();
+    String updateUserStatus(String username);
 }

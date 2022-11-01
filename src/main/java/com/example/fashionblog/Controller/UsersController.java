@@ -72,5 +72,19 @@ public class UsersController {
         return userService.logout();
     }
 
+    @PostMapping("/verification{username}")
+    @Operation(
+            tags = {"Users"},
+            summary = "User Email Verification",
+            description = "This endpoint enables user to update account status after signup",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "email verification successful", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+            }
+
+    )
+    public String emailVerification(@RequestParam(name = "username") String username){
+        return userService.updateUserStatus(username);
+    }
+
 
 }
